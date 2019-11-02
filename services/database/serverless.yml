@@ -1,4 +1,4 @@
-service: boblet-database
+service: ${file(../../serverless.common.yml):app-name}-database
 
 custom:
   # Our stage is based on what is passed in when running serverless
@@ -22,12 +22,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: userId
             AttributeType: S
-          - AttributeName: noteId
+          - AttributeName: uploadId
             AttributeType: S
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
-          - AttributeName: noteId
+          - AttributeName: uploadId
             KeyType: RANGE
         # Set the capacity to auto-scale
         BillingMode: PAY_PER_REQUEST
