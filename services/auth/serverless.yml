@@ -98,7 +98,7 @@ resources:
                     - Fn::Join:
                       - ''
                       -
-                        - 'Fn::ImportValue': ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-UploadsBucketArn
+                        - 'Fn::ImportValue': ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-StorageBucketArn
                         - '/private/'
                         - '$'
                         - '{cognito-identity.amazonaws.com:sub}/*'
