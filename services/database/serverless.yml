@@ -5,12 +5,12 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom.stage}-${file(../../app):app-name}
+  tableName: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}
 
 provider:
   name: aws
   stage: dev
-  region: ${file(../../app):region}
+  region: ${file(../../serverless.common.yml):region}
 
 resources:
   Resources:
@@ -39,4 +39,4 @@ resources:
           - UploadsTable
           - Arn
       Export:
-        Name: ${self:custom.stage}-${file(../../app):app-name}-UploadsTableArn
+        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-UploadsTableArn

@@ -8,7 +8,7 @@ custom:
 provider:
   name: aws
   stage: dev
-  region: ${file(../../app):region}
+  region: ${file(../../serverless.common.yml):region}
 
 resources:
   Resources:
@@ -39,11 +39,11 @@ resources:
           - S3Bucket
           - Arn
       Export:
-        Name: ${self:custom.stage}-${file(../../app):app-name}-UploadsBucketArn
+        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-UploadsBucketArn
 
     AttachmentsBucketName:
       Value:
         Ref: S3Bucket
       Export:
-        Name: ${self:custom.stage}-${file(../../app):app-name}-UploadsBucketName
+        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-UploadsBucketName
 

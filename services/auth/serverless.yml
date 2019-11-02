@@ -8,7 +8,7 @@ custom:
 provider:
   name: aws
   stage: dev
-  region: ${file(../../app):region}
+  region: ${file(../../serverless.common.yml):region}
 
 resources:
   Resources:
@@ -16,7 +16,7 @@ resources:
       Type: AWS::Cognito::UserPool
       Properties:
         # Generate a name based on the stage
-        UserPoolName: ${self:custom.stage}-${file(../../app):app-name}-user-pool
+        UserPoolName: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-user-pool
         # Set email as an alias
         UsernameAttributes:
           - email
@@ -27,7 +27,7 @@ resources:
       Type: AWS::Cognito::UserPoolClient
       Properties:
         # Generate an app client name based on the stage
-        ClientName: ${self:custom.stage}-${file(../../app):app-name}-user-pool-client
+        ClientName: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-user-pool-client
         UserPoolId:
           Ref: CognitoUserPool
         ExplicitAuthFlows:
@@ -39,7 +39,7 @@ resources:
       Type: AWS::Cognito::IdentityPool
       Properties:
         # Generate a name based on the stage
-        IdentityPoolName: ${self:custom.stage}${file(../../app):app-name}IdentityPool
+        IdentityPoolName: ${self:custom.stage}${file(../../serverless.common.yml):app-name}IdentityPool
         # Don't allow unathenticated users
         AllowUnauthenticatedIdentities: false
         # Link to our User Pool
@@ -98,7 +98,7 @@ resources:
                     - Fn::Join:
                       - ''
                       -
-                        - 'Fn::ImportValue': ${self:custom.stage}-${file(../../app):app-name}-UploadsBucketArn
+                        - 'Fn::ImportValue': ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-UploadsBucketArn
                         - '/private/'
                         - '$'
                         - '{cognito-identity.amazonaws.com:sub}/*'
@@ -121,5 +121,5 @@ resources:
       Value:
         Ref: CognitoAuthRole
       Export:
-        Name: ${self:custom.stage}-${file(../../app):app-name}-CognitoAuthRole
+        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-CognitoAuthRole
 
