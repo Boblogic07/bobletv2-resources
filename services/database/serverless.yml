@@ -5,16 +5,16 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom.stage}-ext-notes
+  tableName: ${self:custom.stage}-${file(../../app):app-name}
 
 provider:
   name: aws
   stage: dev
-  region: ap-southeast-2
+  region: ${file(../../app):region}
 
 resources:
   Resources:
-    NotesTable:
+    UploadsTable:
       Type: AWS::DynamoDB::Table
       Properties:
         # Generate a name based on the stage
@@ -33,10 +33,10 @@ resources:
         BillingMode: PAY_PER_REQUEST
 
   Outputs:
-    NotesTableArn:
+    UploadsTableArn:
       Value:
          Fn::GetAtt:
-          - NotesTable
+          - UploadsTable
           - Arn
       Export:
-        Name: ${self:custom.stage}-ExtNotesTableArn
+        Name: ${self:custom.stage}-${file(../../app):app-name}-UploadsTableArn

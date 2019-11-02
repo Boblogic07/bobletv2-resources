@@ -8,7 +8,7 @@ custom:
 provider:
   name: aws
   stage: dev
-  region: ap-southeast-2
+  region: ${file(../../app):region}
 
 resources:
   Resources:
@@ -39,11 +39,11 @@ resources:
           - S3Bucket
           - Arn
       Export:
-        Name: ${self:custom.stage}-ExtAttachmentsBucketArn
+        Name: ${self:custom.stage}-${file(../../app):app-name}-UploadsBucketArn
 
     AttachmentsBucketName:
       Value:
         Ref: S3Bucket
       Export:
-        Name: ${self:custom.stage}-ExtAttachmentsBucket
+        Name: ${self:custom.stage}-${file(../../app):app-name}-UploadsBucketName
 
