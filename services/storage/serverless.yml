@@ -39,11 +39,11 @@ resources:
           - S3Bucket
           - Arn
       Export:
-        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-storageBucketArn
+        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-StorageBucketArn
 
     AttachmentsBucketName:
       Value:
         Ref: S3Bucket
       Export:
-        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-storageBucketName
+        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-StorageBucketName
 
