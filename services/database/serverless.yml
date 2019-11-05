@@ -40,3 +40,10 @@ resources:
           - Arn
       Export:
         Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-StorageTableArn
+    StorageTableName:
+      Value:
+         Fn::GetAtt:
+          - StorageTable
+          - TableName
+      Export:
+        Name: ${self:custom.stage}-${file(../../serverless.common.yml):app-name}-StorageTableName
